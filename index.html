@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Webcam test</title>
+</head>
+<body>
+    <div style="font-size:xx-large;" id="errorMessage"></div>
+  <video id="myVideo" muted="muted  width="640" height="480" autoplay="true" playsInline="true"></video>
+
+  <script>
+    const videoElement = document.getElementById('myVideo');
+    const errorMessageElement = document.getElementById('errorMessage');
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            videoElement.srcObject = stream;
+            videoElement.play();
+        })
+        .catch(function(error) {
+            errorMessageElement.innerText = "Failed to access camera";
+            console.error('Failed to access camera::', error);
+        });
+    } else {
+        errorMessageElement.innerText = 'getUserMedia is not supported in this browser';
+        console.error('getUserMedia is not supported in this browser');
+    }
+  </script>
+</body>
+</html>
